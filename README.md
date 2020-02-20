@@ -12,7 +12,9 @@
 #### 3、安装及使用方法
 
 1、pip install -r requirements.txt # 安装所需模块(推荐python3.8)
+
 2、安装postgreSql数据库(12版本)，创建一个数据库
+
 3、修改项目下的`WebConfig.py`配置文件，配置`SHODAN_KEY`和数据库连接地址`SQLALCHEMY_DATABASE_URI`两个选项，若没有shodan key请去注册(免费)
 
 ```
@@ -20,6 +22,7 @@ SHODAN_KEY = 'xxxxx'  # shodan key
 SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:123456@127.0.0.1/bayonet'  # 数据库连接
 ```
 4、修改项目下的`app.py`的mian方法，如下所示，进行创建数据库和默认用户
+
 > python app.py
 
 ```
@@ -29,6 +32,7 @@ if __name__ == '__main__':
     #DeletDb()
     #APP.run()
 ```
+
 5、运行后若没有出错，说明数据库连接配置正确，已经创建了数据库和用户，再次修改`app.py`的main方法，如下所示，注释其他，app.run启动；
 
 ```
