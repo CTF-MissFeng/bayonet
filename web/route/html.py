@@ -98,9 +98,9 @@ def api_menu_init():
     assets_menu = {'title': '资产管理', 'icon': 'fa fa-address-book', 'child': [
         {'title': '添加任务', 'href': url_for('html_src_domain'), 'icon': 'fa fa-tachometer', 'target': '_self'},
         {'title': '子域名管理', 'href': url_for('html_src_subdomain'), 'icon': 'fa fa-globe', 'target': '_self'},
-        {'title': '端口服务管理', 'href': url_for('html_src_ports'), 'icon': 'fa fa-puzzle-piece', 'target': '_self'},
-        {'title': 'URL管理', 'href': url_for('html_src_urls'), 'icon': 'fa fa-puzzle-piece', 'target': '_self'},
-        {'title': '漏洞管理', 'href': url_for('html_src_scan'), 'icon': 'fa fa-puzzle-piece', 'target': '_self'},
+        {'title': '端口服务管理', 'href': url_for('html_src_ports'), 'icon': 'fa fa-cube', 'target': '_self'},
+        {'title': 'URL管理', 'href': url_for('html_src_urls'), 'icon': 'fa fa-paw', 'target': '_self'},
+        {'title': '漏洞管理', 'href': url_for('html_src_scan'), 'icon': 'fa fa-user-secret', 'target': '_self'},
     ]}
     system_menu = {'title': '系统管理', 'icon': 'fa fa-gears', 'child': [
         {'title': '用户管理', 'href': '', 'icon': 'fa fa-user', 'target': '_self', 'child': [

@@ -1,0 +1,7 @@
+2020-02-20 23:17:41,643 [INFOR] MainProcess(17306):Thread-3  (123145599430656) | user.post:30 - 验证码错误，用户名[admin]
+2020-02-20 23:17:49,136 [INFOR] MainProcess(17306):Thread-6  (123145599430656) | user.post:36 - 用户[admin]登录失败，原因：用户名不存在，IP[127.0.0.1]
+2020-02-20 23:18:17,228 [INFOR] MainProcess(17306):Thread-8  (123145599430656) | user.post:53 - 用户[root]登录成功，IP[127.0.0.1]
+2020-02-21 00:00:41,680 [INFOR] MainProcess(18866):Thread-1  (123145619968000) | src.post:44 - 添加主域名任务成功-主域名[cqepc.cn]-厂商[重庆航天职业技术学院]
+2020-02-21 01:09:44,869 [INFOR] MainProcess(21082):Thread-12 (123145487855616) | src.post:44 - 添加主域名任务成功-主域名[cqepc.cn]-厂商[重庆航天]
+2020-02-21 01:22:06,695 [INFOR] MainProcess(21082):Thread-39 (123145487855616) | src.post:44 - 添加主域名任务成功-主域名[sjtu.edu.cn]-厂商[交大]
+2020-02-21 01:57:21,426 [INFOR] MainProcess(23035):Thread-19 (123145378025472) | src.post:44 - 添加主域名任务成功-主域名[sjtu.edu.cn]-厂商[上海交通大学]

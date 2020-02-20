@@ -5,7 +5,7 @@ import pathlib
 import json
 import requests
 import time
-
+sys.path.append("../../../")
 from colorama import deinit
 
 try:
@@ -18,7 +18,7 @@ from W13SCAN.lib.controller import start
 from W13SCAN.lib.data import conf, logger
 from W13SCAN.lib.option import init
 from W13SCAN.lib.data import KB
-from W13SCAN.db_config import SrcUrls, DBSession
+from db_config import SrcUrls, DBSession
 
 requests.packages.urllib3.disable_warnings()
 proxies = {

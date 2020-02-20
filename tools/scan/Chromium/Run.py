@@ -1,8 +1,10 @@
 # 爬虫模块
 from concurrent.futures import ThreadPoolExecutor
 import time
+import sys
 import json
 import subprocess
+sys.path.append("../../../")
 from db_config import SrcUrls, DBSession
 import pathlib
 import uuid

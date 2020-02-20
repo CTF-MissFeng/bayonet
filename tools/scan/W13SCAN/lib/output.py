@@ -3,13 +3,14 @@
 # @Time    : 2019/6/29 2:28 PM
 # @Author  : w8ay
 # @File    : output.py
-
+import sys
 from threading import Lock
 from urllib.parse import *
 from colorama import Fore
+sys.path.append("../../../../")
 
 from W13SCAN.lib.data import Share, KB
-from W13SCAN.db_config import DBSession, SrcVulnerabilitie
+from db_config import DBSession, SrcVulnerabilitie
 
 session = DBSession()
 

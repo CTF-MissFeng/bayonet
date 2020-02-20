@@ -5,6 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 import datetime
+from WebConfig import Config
 
 Base = declarative_base()
 
@@ -54,7 +55,7 @@ class SrcPorts(Base):
     product = Column(String(80))
     version = Column(String(50))
     data = Column(String(200))
-    flag = Column(Boolean)
+    flag = Column(String(50))
     porttime = Column(String(30))
     srcsubdomain = relationship('SrcSubDomain', back_populates='srcports')  # 建议双向关系
 
@@ -111,8 +112,8 @@ class SrcVulnerabilitie(Base):
         self.scan_name = scan_name
         self.flag = flag
 
-sql_connect = 'postgresql://postgres:123456@127.0.0.1/bayonet'
-shodan_key = 'xxxxx'
+sql_connect = Config.SQLALCHEMY_DATABASE_URI
+shodan_key = Config.SHODAN_KEY
 
 engine = create_engine(sql_connect)
 DBSession = sessionmaker(bind=engine)

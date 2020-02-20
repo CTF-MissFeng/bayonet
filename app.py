@@ -19,7 +19,7 @@ def DeletDb():
     CreateDatabase()
 
 if __name__ == '__main__':
-    #CreateDatabase()
-    #CreateUser()
+    #CreateDatabase()  # 创建数据
+    #CreateUser()  # 创建默认用户
     #DeletDb()
     APP.run()

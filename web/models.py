@@ -100,11 +100,11 @@ class SrcPorts(DB.Model):
     product = DB.Column(DB.String(80))
     version = DB.Column(DB.String(50))
     data = DB.Column(DB.String(200))
-    flag = DB.Column(DB.Boolean)
+    flag = DB.Column(DB.String(50))
     porttime = DB.Column(DB.String(30))
     srcsubdomain = DB.relationship('SrcSubDomain', back_populates='srcports')  # 建议双向关系
 
-    def __init__(self, subdomain, port, product, version, data, porttime='', flag=False):
+    def __init__(self, subdomain, port, product, version, data, porttime='', flag='未扫描'):
         self.subdomain = subdomain
         self.port = port
         self.product = product
