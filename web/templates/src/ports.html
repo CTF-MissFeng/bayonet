@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>端口服务管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/layui-v2.5.4/css/layui.css') }}" media="all">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public.css') }}" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="layui-elem-field layuimini-search">
+            <legend>端口管理</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">子域名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="subdomain" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">服务</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="product" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <a class="layui-btn" lay-submit="" lay-filter="data-search-btn">搜索</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='lib/layui-v2.5.4/layui.js') }}" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        table.render({
+            elem: '#currentTableId',
+            url: "{{ url_for('api_src_ports') }}",
+            cols: [[
+                {field: 'id', width: 70, title: 'ID'},
+                {field: 'subdomain', width: 160, title: '子域名', sort: true},
+                {field: 'subdomain_ip', width: 200, title: 'IP'},
+                {field: 'city', width: 180, title: '归属地'},
+                {field: 'port', width: 100, title: '端口号'},
+                {field: 'service', width: 150, title: '协议'},
+                {field: 'product', width: 230, title: '服务'},
+                {field: 'version', width: 100, title: '版本'},
+                {field: 'porttime', minWidth: 300, title: '扫描时间'}
+            ]],
+            limits: [20, 40, 60, 80, 100],
+            limit: 20,
+            page: true
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

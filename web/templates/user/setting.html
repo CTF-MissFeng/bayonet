@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>基本资料</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/layui-v2.5.4/css/layui.css') }}" media="all">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/public.css') }}" media="all">
+    <style>
+        .layui-form-item .layui-input-company {
+            width: auto;
+            padding-right: 10px;
+            line-height: 38px;
+        }
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-form layuimini-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户</label>
+                <div class="layui-input-block">
+                    <input type="text" name="username" disabled value="{{ user.username }}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="xingming" lay-verify="required" lay-reqtext="姓名不能为空" placeholder="请输入姓名"
+                           value="{% if user.xingming %}{{ user.xingming }}{% endif %}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">手机</label>
+                <div class="layui-input-block">
+                    <input type="number" name="phone" lay-verify="required|phone" lay-reqtext="手机不能为空"
+                           placeholder="请输入手机"
+                           value="{% if user.phone %}{{ user.phone }}{% endif %}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">邮箱</label>
+                <div class="layui-input-block">
+                    <input type="email" name="email" lay-verify="email" placeholder="请输入邮箱" lay-reqtext="邮箱不能为空"
+                           value="{% if user.email %}{{ user.email }}{% endif %}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注信息</label>
+                <div class="layui-input-block">
+                    <textarea name="remark" class="layui-textarea" placeholder="请输入备注信息">{% if user.remark %}{{ user.remark }}{% endif %}</textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="saveBtn">确认保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='lib/jquery-3.4.1/jquery-3.4.1.min.js') }}" charset="utf-8"></script>
+<script src="{{ url_for('static', filename='lib/layui-v2.5.4/layui.js') }}" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer;
+
+        form.verify({
+            email: [
+                /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/, '邮箱输入格式错误'
+            ],
+            phone: [
+                /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/, '手机号格式不正确'
+            ],
+            content: function (value) {
+                layedit.sync(editIndex);
+            }
+        });
+        var title = "{{ title }}";
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            $.ajax({
+                url: "{{ url_for('api_user_setting') }}",
+                data: JSON.stringify(data.field),
+                contentType: 'application/json;charset=UTF-8',
+                dataType: 'json',
+                type: 'post',
+                success: function (result) {
+                    data = result;
+                    if (data.result.status_code == 200) {
+                        layer.alert('修改用户资料成功!', {title: title + '提示', icon: 1})
+                    } else {
+                        layer.alert('修改用户资料失败!', {title: title + '提示', icon: 2})
+                    }
+                },
+                error: function (e) {
+                    layer.alert(JSON.stringify(e.message), {title: title + '提示', icon: 2})
+                }
+            })
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>
