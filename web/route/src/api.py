@@ -130,6 +130,26 @@ class SrcDomainAPI(Resource):
         logger.log('INFOR', f'删除主任务成功，{key_domain}')
         return {'result': {'status_code': 200}}
 
+    def put(self):
+        if not session.get('status'):
+            return {'result': {'status_code': 401}}
+        args = self.parser.parse_args()
+        key_domain = escape(args.domain)
+        domain_query = SrcDomain.query.filter(SrcDomain.domain == key_domain).first()
+        if not domain_query:  # 删除的domain不存在
+            return {'result': {'status_code': 202}}
+        domain_query.flag = '未扫描'
+        DB.session.add(domain_query)
+        try:
+            DB.session.commit()
+        except Exception as e:
+            DB.session.rollback()
+            logger.log('ALERT', f'再次扫描主任务失败,{e}')
+            return {'result': {'status_code': 500}}
+        addlog(session.get('username'), session.get('login_ip'), f'再次扫描主任务:[{key_domain}] 成功')
+        logger.log('INFOR', f'再次扫描主任务成功，{key_domain}')
+        return {'result': {'status_code': 200}}
+
 class SrcPortsAPI(Resource):
     '''src 端口管理类'''
 

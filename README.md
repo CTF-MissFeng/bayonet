@@ -10,7 +10,7 @@
 - 端口服务扫描：shodan+异步socket+nmap
 - URL可用探测
 - 驱动浏览器爬虫采集数据：crawlergo
-- 被动漏洞扫描：w13scan
+- 被动漏洞扫描：xray
 
 ### 安装说明
 
@@ -34,17 +34,42 @@ sudo apt-get install chromium-browser
 
 
 ### 使用说明
-- 1、修改`config.py`和`db_config.py`文件，填入`数据库链接项`、`shodanapi项`,其他选项选填。注意shodanapi需填写在端口扫描配置项中。
+- 1、修改`config.py`文件，填入`数据库链接项`、`shodan api项`,其他选项选填。注意shodan api需填写在PortScan类配置项中。
 
-- 2、执行`python app.py`，开启web服务，若能正常访问说明数据库链接无误
+![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/10.png)
 
-- 3、执行`python Run.py`，将会起四个进程分别启动子域名扫描、端口扫描、URL扫描、爬虫模块（推荐各个模块独立执行，这样互不干扰，也容易查看模块日志）
+- 2、执行`sh bayonet.sh`脚本启动所有模块（注意，如果python3不是默认的python命令，请修改脚本为`python3`）
 
-- 4、进入`tools/scan/W13scan目录`，执行`python cli.py`开启被动漏洞扫描（w13scan未整合到项目中，故需手动执行）。以上操作可用`nohub`进行后台执行。
+![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/11.png)
 
 - 5、查看web页面数据状态，等待扫描即可。注意`漏洞扫描需要去web页面的扫描任务管理手动开启`，这样做是为了不必要扫描不需要的子域名。
+> 如果是服务器搭建，则访问http://服务器外网ip，如果为本机搭建则访问http://127.0.0.1
+> 默认用户名密码：root/qazxsw@123
+
+- 6、登录web，添加一个主域名任务，等待片刻，刷新下，就会执行子域名扫描任务
+
+![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/12.png)
+
+![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/13.png)
+
+- 7、扫描器子域名需要一定时间，可查看日志观察进度（logs目录下是各个模块运行日志）
+
+![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/14.png)
+
+- 8、当子域名、端口扫描、url探测都开始工作了，会在web中显示各模块结果，现在进入扫描任务管理，选择要扫描的URL进行扫描
+
+![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/15.png)
+
+- 9、当选择了一个URL进行安全扫描，爬虫模块启动开始驱动浏览器进行爬取，爬取完后，xray开启工作进行漏洞扫描
+
+![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/16.png)
+
+- 10、当xray扫描进行中，如果有漏洞会实时存入数据库中，刷新漏洞管理可看到，当点击提交按钮，说明此漏洞已复现或提交给SRC（会在已提交漏洞模块中保存），若误报可删除此漏洞。
+
+![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/17.png)
 
 ### docker使用
+> docker里代码为旧版本，尚未更新代码。若使用docker请更换代码
 
 ```
 $ docker search bayonet  # 查看该项目docker镜像
@@ -65,18 +90,21 @@ $ docker exec -it 8223 bash  # 进入容器中 8223是容器ID：822374ab6f7d简
 
 # vim config.py   # 编辑配置文件，找到 shodan_api，填入该参数值；其他配置可自己配置
 
-# nohup python3 -u app.py > web.log 2>&1 &  # 后台启动web服务
-# nohup python3 -u Run.py > tools.log 2>&1 &  # 后台启动工具模块
+# sh bayonet.sh  # 启动脚本
 
-# cd tools/scan/W13SCAN/
-# nohup python3 -u cli.py > w13scan.log 2>&1 &  # 后台启动w13scan
-
-访问本机地址: http://127.0.0.1:5000
+访问本机地址: http://127.0.0.1
 默认用户名密码：root/qazxsw@123
 ```
 
 
 ### 更新日志
+
+##### 2020年3月16日
+> bayonet V1.1版本完成。添加并完善了：
+
+- 1: 去除w13scan被动扫描器，添加xray被动扫描器
+- 2: 主域名任务可重复扫描
+- 3: 修复BUG
 
 ##### 2020年3月04日
 > bayonet V1.1版本完成。添加并完善了：
@@ -89,7 +117,6 @@ $ docker exec -it 8223 bash  # 进入容器中 8223是容器ID：822374ab6f7d简
 - 6：修复了一些bug
 
 尚未添加功能：
-- xray扫描器
 - 端口服务漏洞扫描
 
 ##### 2020年2月13日

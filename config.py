@@ -1,13 +1,25 @@
+import uuid
 import os
 import pathlib
 import urllib3
 
 class BayonetConfig(object):
     '''Flask数据配置'''
-    SECRET_KEY = 'a819f87b3e371a82dafb8c535c1242c9bba5e91da02ff1d87095367d1d4e188e'
+    SECRET_KEY = str(uuid.uuid4())
     SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:qazxsw@123@127.0.0.1/bayonet'  # 数据库连接字符串
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TITLE = 'Bayonet 资产管理系统'
+    PORT = 80  # web端口
+
+class PortScan:
+    cdn_scan = True  # 不扫描识别为cdn的IP
+    shodan_api = 'xxxxxxxx'  # shodan查询api
+    async_scan = False  # 是否开启常规端口服务探测
+    async_scan_timeout = 30  # 异步端口扫描超时时间
+    async_scan_threads = 500  # 异步协程数
+    # nmap程序路径地址，可指定具体路径或设置环境变量
+    nmap_search_path = ('nmap', '/usr/bin/nmap', '/usr/local/bin/nmap', '/sw/bin/nmap', '/opt/local/bin/nmap')
+    port_num = 500  # 超过多少个端口识别为CDN丢弃
 
 class Oneforall:
     # 模块API配置
@@ -202,16 +214,6 @@ class Oneforall:
                          'web', 'www', 'job', 'docs', 'news', 'blog', 'data',
                          'help', 'live', 'mall', 'blogs', 'files', 'forum',
                          'store', 'mobile'}
-
-class PortScan:
-    cdn_scan = True  # 不扫描识别为cdn的IP
-    shodan_api = 'xxx'  # shodan查询api
-    async_scan = False  # 是否开启常规端口服务探测
-    async_scan_timeout = 30  # 异步端口扫描超时时间
-    async_scan_threads = 500  # 异步协程数
-    # nmap程序路径地址，可指定具体路径或设置环境变量
-    nmap_search_path = ('nmap', '/usr/bin/nmap', '/usr/local/bin/nmap', '/sw/bin/nmap', '/opt/local/bin/nmap')
-    port_num = 500  # 超过多少个端口识别为CDN丢弃
 
 class UrlScan:
     timeout = 15  # HTTP访问超时

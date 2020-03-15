@@ -1,7 +1,7 @@
-from flask import render_template
+from flask import render_template, request
 
 from web import APP, TITLE
-from web.utils.auxiliary import login_required
+from web.utils.auxiliary import login_required, scan_write
 
 @APP.route('/html/src/domain')
 @login_required
@@ -44,3 +44,20 @@ def html_src_scan():
 def html_src_scan_success():
     '''已提交漏洞管理界面'''
     return render_template('src/scan_success.html', title=TITLE)
+
+@APP.route('/webhook', methods=['POST'])
+def xray_webhook():
+    try:
+        vuln = request.json
+    except:
+        pass
+    else:
+        if 'create_time' in vuln:
+            plugin = vuln.get('plugin', '') + '--' +vuln.get('vuln_class', '')
+            url = vuln['detail'].get('url')
+            payload = vuln['detail'].get('payload', '')
+            raw = vuln['detail'].get('request', '')
+            print(f'新漏洞：{url}')
+            scan_write(plugin, url, payload, raw, flag=False, scan_name='xray')
+    finally:
+        return "ok"

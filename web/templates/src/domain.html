@@ -80,6 +80,7 @@
                     <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
                     <script type="text/html" id="currentTableBar">
                         <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+                        <a class="layui-btn layui-btn-xs" lay-event="reset">再次扫描</a>
                     </script>
                 </div>
             </div>
@@ -225,7 +226,7 @@
                 table.on('tool(currentTableFilter)', function (obj) {
                     var data = obj.data;
                     if (obj.event === 'delete') {
-                        layer.confirm('删除该任务会把该任务所有数据一同删除，如果删除正在扫描的任务，可能会触发异常，确定吗?', function (index) {
+                        layer.confirm('删除该任务会把该任务所有数据一同删除，如果删除正在扫描的任务，可能会触发数据库异常，确定吗?', function (index) {
                             $.ajax({
                                 url: "{{ url_for('api_src_domain') }}",
                                 data: JSON.stringify(data),
@@ -248,6 +249,35 @@
                                         })
                                     } else {
                                         layer.alert('删除主域名任务失败!', {
+                                            title: title + '提示',
+                                            icon: 2
+                                        })
+                                    }
+                                }
+                            })
+                        });
+                    } else if (obj.event === 'reset') {
+                        layer.confirm('确定再次扫描此主域名吗?', function (index) {
+                            $.ajax({
+                                url: "{{ url_for('api_src_domain') }}",
+                                data: JSON.stringify(data),
+                                contentType: 'application/json;charset=UTF-8',
+                                dataType: 'json',
+                                type: 'put',
+                                success: function (result) {
+                                    data = result;
+                                    if (data.result.status_code == 200) {
+                                        layer.alert('再次扫描主域名任务成功!', {
+                                            title: title + '提示',
+                                            icon: 1
+                                        })
+                                    } else if (data.result.status_code == 202) {
+                                        layer.alert('此主域名任务不存在!', {
+                                            title: title + '提示',
+                                            icon: 2
+                                        })
+                                    } else {
+                                        layer.alert('再次扫描主域名任务失败!', {
                                             title: title + '提示',
                                             icon: 2
                                         })
