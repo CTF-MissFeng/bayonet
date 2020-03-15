@@ -7,7 +7,7 @@
 ### 功能点
 
 - 子域名扫描：oneforall
-- 端口服务扫描：shodan+异步socket+nmap
+- 端口服务扫描：shodan+异步socket+nmap（ip数据库、CDN判断）
 - URL可用探测
 - 驱动浏览器爬虫采集数据：crawlergo
 - 被动漏洞扫描：xray
@@ -34,7 +34,7 @@ sudo apt-get install chromium-browser
 
 
 ### 使用说明
-- 1、修改`config.py`文件，填入`数据库链接项`、`shodan api项`,其他选项选填。注意shodan api需填写在PortScan类配置项中。
+- 1、修改`config.py`文件，填入`数据库链接项`、`shodan api项`,其他选项选填（环境不一致需要更改选项，如nmap路径、chromium浏览器路径等，具体看配置文件）
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/10.png)
 
@@ -42,27 +42,27 @@ sudo apt-get install chromium-browser
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/11.png)
 
-- 6、登录web，添加一个主域名任务，等待片刻，刷新下，就会执行子域名扫描任务
-> 如果是服务器搭建，则访问http://服务器外网ip，如果为本机搭建则访问http://127.0.0.1
+- 3、登录web，添加一个主域名任务，等待片刻，刷新下，就会执行子域名扫描任务
+> 如果是服务器搭建，则访问`http://服务器外网ip`，如果为本机搭建则访问`http://127.0.0.1`
 > 默认用户名密码：root/qazxsw@123
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/12.png)
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/13.png)
 
-- 7、扫描器子域名需要一定时间，可查看日志观察进度（logs目录下是各个模块运行日志）
+- 4、扫描器子域名需要一定时间，可查看日志观察进度（logs目录下是各个模块运行日志）
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/14.png)
 
-- 8、当子域名、端口扫描、url探测都开始工作了，会在web中显示各模块结果，现在进入扫描任务管理，选择要扫描的URL进行扫描
+- 5、当子域名、端口扫描、url探测都开始工作了，会在web中显示各模块结果，现在进入扫描任务管理，选择要扫描的URL进行扫描
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/15.png)
 
-- 9、当选择了一个URL进行安全扫描，爬虫模块启动开始驱动浏览器进行爬取，爬取完后，xray开启工作进行漏洞扫描
+- 6、当选择了一个URL进行安全扫描，爬虫模块启动开始驱动浏览器进行爬取，爬取完后，xray开启工作进行漏洞扫描
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/16.png)
 
-- 10、当xray扫描进行中，如果有漏洞会实时存入数据库中，刷新漏洞管理可看到，当点击提交按钮，说明此漏洞已复现或提交给SRC（会在已提交漏洞模块中保存），若误报可删除此漏洞。
+- 7、当xray扫描进行中，如果有漏洞会实时存入数据库中，刷新漏洞管理可看到，当点击提交按钮，说明此漏洞已复现或提交给SRC（会在已提交漏洞模块中保存），若误报可删除此漏洞。
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/17.png)
 
