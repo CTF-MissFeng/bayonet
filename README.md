@@ -42,11 +42,9 @@ sudo apt-get install chromium-browser
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/11.png)
 
-- 5、查看web页面数据状态，等待扫描即可。注意`漏洞扫描需要去web页面的扫描任务管理手动开启`，这样做是为了不必要扫描不需要的子域名。
+- 6、登录web，添加一个主域名任务，等待片刻，刷新下，就会执行子域名扫描任务
 > 如果是服务器搭建，则访问http://服务器外网ip，如果为本机搭建则访问http://127.0.0.1
 > 默认用户名密码：root/qazxsw@123
-
-- 6、登录web，添加一个主域名任务，等待片刻，刷新下，就会执行子域名扫描任务
 
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/12.png)
 
