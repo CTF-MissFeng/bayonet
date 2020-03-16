@@ -67,18 +67,17 @@ sudo apt-get install chromium-browser
 ![index](https://github.com/CTF-MissFeng/bayonet/blob/master/doc/17.png)
 
 ### docker使用
-> docker里代码为旧版本，尚未更新代码。若使用docker请更换代码
 
 ```
 $ docker search bayonet  # 查看该项目docker镜像
 missfeng/bayonet    bayonet项目docker镜像
 
-$ docker pull missfeng/bayonet:v1.1  # 拉取镜像
+$ docker pull missfeng/bayonet:v1.2  # 拉取镜像
 
-$ docker run -itd --name bayonet -p 5000:80 missfeng/bayonet:v1.1  # 后台启动容器
+$ docker run -itd --name bayonet -p 5000:80 missfeng/bayonet:v1.2  # 后台启动容器
 
 $ docker ps  # 查看已启动的容器
-822374ab6f7d        bayonet:v1.1
+822374ab6f7d        bayonet:v1.2
 
 $ docker exec -it 8223 bash  # 进入容器中 8223是容器ID：822374ab6f7d简写
 
