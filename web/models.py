@@ -92,8 +92,8 @@ class SrcSubDomain(DB.Model):
                                     cascade='all, delete-orphan')  # 双向关系
     src_urls = DB.relationship('SrcUrls', back_populates='src_subdomain',
                                 cascade='all, delete-orphan')  # 双向关系
-    src_vulnerabilitie = DB.relationship('SrcVulnerabilitie', back_populates='src_subdomain',
-                               cascade='all, delete-orphan')  # 双向关系
+    # src_vulnerabilitie = DB.relationship('SrcVulnerabilitie', back_populates='src_subdomain',
+    #                            cascade='all, delete-orphan')  # 双向关系
 
     def __init__(self, subdomain, domain, subdomain_ip, city, cdn, flag=False):
         self.subdomain = subdomain
@@ -164,7 +164,7 @@ class SrcVulnerabilitie(DB.Model):
 
     __tablename__ = 'src_vulnerabilitie'
     id = DB.Column(DB.Integer, primary_key=True)
-    subdomain = DB.Column(DB.String(150), DB.ForeignKey('src_subdomain.subdomain', ondelete='CASCADE'))
+    subdomain = DB.Column(DB.String(150))
     plugin = DB.Column(DB.String(200))
     url = DB.Column(DB.Text)
     payload = DB.Column(DB.Text)
@@ -172,7 +172,7 @@ class SrcVulnerabilitie(DB.Model):
     time = DB.Column(DB.String(30))
     scan_name = DB.Column(DB.String(30))
     flag = DB.Column(DB.Boolean)
-    src_subdomain = DB.relationship('SrcSubDomain', back_populates='src_vulnerabilitie')  # 双向关系
+    #src_subdomain = DB.relationship('SrcSubDomain', back_populates='src_vulnerabilitie')  # 双向关系
 
     def __init__(self, subdomain, plugin, url, payload, raw, scan_name, flag=False):
         self.subdomain = subdomain
