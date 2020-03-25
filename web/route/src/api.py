@@ -268,7 +268,7 @@ class SrcSubDomainAPI(Resource):
                 data1['domain_name'] = i.src_domain.domain_name
                 data1['port_count'] = len(i.src_ports)
                 data1['url_count'] = len(i.src_urls)
-                data1['loudong_count'] = len(i.src_vulnerabilitie)
+                data1['loudong_count'] = 0
                 index += 1
                 data.append(data1)
             jsondata.update({'data': data})
