@@ -1,3 +1,8 @@
+### 项目更新
+> Watchdog是bayonet优化版，重新优化了web、数据库模型，加入了多节点部署等功能，详情请查看：
+
+> https://github.com/CTF-MissFeng/Watchdog
+
 ### 简介
 
 > Bayonet是整合多款安全工具并以web形式展现，它辅助渗透测试人员对IT资产进行资产管理。
