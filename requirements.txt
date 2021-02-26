@@ -6,7 +6,7 @@ colorama==0.4.1
 cdx_toolkit==0.9.25
 loguru==0.4.0
 tablib==0.14.0
-aiohttp==3.6.2
+aiohttp==3.7.4
 python_nmap==0.6.1
 exrex==0.10.5
 cloudscraper==1.2.16
